@@ -1,4 +1,5 @@
 const List=require("../models/List")
+const Card=require("../models/Card")
 class ListController
 {
     async create(req,res)
@@ -14,6 +15,7 @@ class ListController
     {
         let {id}=req.params
         await List.deleteOne({_id:id})
+        await Card.deleteMany({listId:id})
         console.log(id)
         res.json("Delete list success")
     }

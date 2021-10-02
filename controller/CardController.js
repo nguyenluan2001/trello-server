@@ -24,5 +24,17 @@ class CardController
         let card=await Card.findOne({_id:id})
         res.json({card})
     }
+    async updateOrder(req,res)
+    {
+        let {cards}=req.body
+        let listId=cards[0].listId
+        for(let i=0;i<cards.length;i++)
+        {
+            let _id=cards[i]._id
+            await Card.updateOne({_id},{sort:i})
+        }
+        let fetchCards=await Card.find({listId})
+        res.json({cards:fetchCards})
+    }
 }
 module.exports=new CardController()

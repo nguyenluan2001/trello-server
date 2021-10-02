@@ -41,7 +41,12 @@ class BoardController {
                             $lookup: {
                                 from: 'cards',
                                 let: { listId: '$_id' },
-                                pipeline: [{ $match: { $expr: { $eq: ['$listId', '$$listId'] } } }],
+                                pipeline: [
+                                    { $match: { $expr: { $eq: ['$listId', '$$listId'] } } },
+                                    {
+                                        $sort: { "sort": 1 }
+                                    }
+                                ],
                                 as: 'cards',
                             },
                         },
@@ -61,6 +66,20 @@ class BoardController {
         })
         await board.save()
         res.json({ board })
+    }
+    async updateTitle(req,res)
+    {
+        let {id}=req.params
+        let {title}=req.body
+        await Board.updateOne({_id:id},{title})
+        let board=await Board.findOne({_id:id})
+        res.json({board})
+    }
+    async delete(req,res)
+    {
+        let {id}=req.params
+        await Board.deleteOne({_id:id})
+        res.json("Delete board ok")
     }
 }
 module.exports = new BoardController()
