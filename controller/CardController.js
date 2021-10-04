@@ -36,5 +36,12 @@ class CardController
         let fetchCards=await Card.find({listId})
         res.json({cards:fetchCards})
     }
+    async updateDueDate(req,res)
+    {
+        let {id}=req.params
+        let {due_date}=req.body
+        await Card.updateOne({_id:id},{due_date})
+        res.json("Update due date success")
+    }
 }
 module.exports=new CardController()

@@ -10,6 +10,9 @@ const cardSchema=mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"list"
     },
+    due_date:{
+        type:Date
+    },
     sort:{
         type:Number
     }
