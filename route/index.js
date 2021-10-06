@@ -8,6 +8,9 @@ const route = (app) => {
     app.use("/api/board",boardRouter)
     app.use("/api/list",listRouter)
     app.use("/api/card",cardRouter)
+    app.get("hello",(req,res)=>{
+        res.send("HELLO")
+    })
     // app.get("/auth/google", passport.authenticate("google", {
     //     scope: ["profile"]
     // }))
